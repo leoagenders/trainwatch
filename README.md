@@ -79,13 +79,13 @@ A Broadcastify Premium audio stream pipes live railroad scanner audio over HTTPS
 
 A junk filter inspects each transcript and deletes chunks containing only silence, music, ads, or Whisper hallucinations like repeated "you" tokens on near-silent audio. Useful chunks are archived; their transcripts are written to SQLite.
 
-A regex-based parser scans each transcript for defect detector announcements. It handles the messy reality of real-world ASR output: mangled decimal mileposts ("milepost 4, 6.8" → 46.8), apostrophe-confused possessives ("total axle's 268"), and decimal-confused integers ("axle 6.2" → 62). Plausibility checks reject implausible values; a "snap to known detector" step matches noisy mileposts against the known set {3.0, 17.4, 33.7, 46.8, 58.2}.
+A regex-based parser scans each transcript for defect detector announcements. It handles messy ASR output for mangled decimal mileposts ("milepost 4, 6.8" → 46.8), apostrophe-confused possessives ("total axle's 268"), and decimal-confused integers ("axle 6.2" → 62). recently added checks to reject values; a "snap to known detector" step matches noisy mileposts against the known set {3.0, 17.4, 33.7, 46.8, 58.2}.
 
-When a detector event is logged, direction inference runs: if the same train (matched by axle count and length fingerprint) hit a different detector within the last 90 minutes, direction and ground speed are computed from the milepost and time deltas. If the train is heading toward a designated watch spot within an 8–60 minute window, an alert fires via ntfy.sh push notifications.
+I also wanted to know which direction the train was coming overtime so I could be there to see them. So now, when a detector event is logged, direction inference runs: if the same train (matched by axle count and length fingerprint) hit a different detector within the last 90 minutes, direction and ground speed are computed from the milepost and time deltas. If the train is heading toward a designated watch spot within an 8–60 minute window, an alert fires via ntfy.sh push notifications.
 
 The Flask dashboard serves a live view of recent transmissions with inline audio playback, accessible from anywhere via Tailscale VPN. Daily cron jobs push a heartbeat summary at 8 AM and snapshot the SQLite database at 3:30 AM with 30-day retention.
 
-The pipeline runs as two systemd services (capture + web), both auto-restarting on failure and surviving reboots.
+My kids kept unplugging my pi so I needed to handle rebooting automatically. The pipeline runs as two systemd services (capture + web), both auto-restarting on failure and surviving reboots.
 
 ---
 
