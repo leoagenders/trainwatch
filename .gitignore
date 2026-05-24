@@ -1,0 +1,40 @@
+# Credentials and secrets
+config/broadcastify.ini
+config/*.ini
+!config/*.example
+
+# Database files and backups
+data/trainwatch.db
+data/trainwatch.db-journal
+data/trainwatch.db-wal
+data/trainwatch.db-shm
+data/backups/
+
+# Audio captures
+audio/
+*.wav
+*.mp3
+
+# Logs
+logs/
+*.log
+
+# Python venv
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.Python
+
+# OS / editor cruft
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Local test files
+test_*.wav
+*_test.wav
+
+# Local config overrides with real coordinates and topic
+scripts/config_local.py

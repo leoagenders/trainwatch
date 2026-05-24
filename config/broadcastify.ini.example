@@ -1,0 +1,7 @@
+# Copy this file to broadcastify.ini and fill in your credentials.
+# Run: chmod 600 broadcastify.ini after creating it.
+
+[broadcastify]
+username = your_broadcastify_username
+password = your_broadcastify_password
+url = https://audio.broadcastify.com/FEED_ID.mp3
